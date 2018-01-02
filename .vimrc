@@ -52,8 +52,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'fatih/vim-go'
 Plugin 'lokaltog/vim-powerline'
 Plugin 'flazz/vim-colorschemes'
@@ -74,3 +72,6 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set term=xterm-256color
 set termencoding=utf-8
+
+map <C-f> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+
