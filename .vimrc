@@ -55,6 +55,22 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'fatih/vim-go'
+Plugin 'lokaltog/vim-powerline'
+Plugin 'flazz/vim-colorschemes'
+
 
 call vundle#end()
 filetype plugin indent on
+
+colorscheme molokai
+syntax on
+
+let g:go_fmt_command = "goimports"
+
+set guifont=Inconsolata\ for\ Powerline:h15
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
