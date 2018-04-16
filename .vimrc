@@ -1,7 +1,26 @@
 set nocompatible   " Disable vi-compatibility
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'fatih/vim-go'
+Plugin 'lokaltog/vim-powerline'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'brookhong/cscope.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'junegunn/gv.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'kien/ctrlp.vim'
+call vundle#end()
+
 set t_Co=256
 
 filetype off
+filetype plugin indent on
 
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
@@ -21,62 +40,58 @@ set timeout timeoutlen=200 ttimeoutlen=100
 set autowrite  "Save on buffer switch
 set mouse=a
 
+"Show (partial) command in the status line
+set showcmd
+
+set guifont=Inconsolata\ for\ Powerline:h15
+set encoding=utf-8
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
+set cursorline
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%{fugitive#statusline()}
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:go_fmt_command = "goimports"
+let g:Powerline_symbols = 'fancy'
+
+syntax on
+
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
-nmap <C-b> :NERDTreeToggle<cr>
+nmap <C-n> :NERDTreeToggle<cr>
+nmap vs :vsplit<cr>
+nmap sp :split<cr>
+nmap bn :bn<cr>
 
-"Show (partial) command in the status line
-set showcmd
+" handy searching hotkey
+map <C-f> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
+" highlight the searh results
 highlight Search cterm=underline
+" don't highlight when cursor doesn't move
+" and vice versa
+autocmd cursorhold * set nohlsearch
+autocmd cursormoved * set hlsearch
 
 " Powerline (Fancy thingy at bottom stuff)
 let g:Powerline_symbols = 'fancy'
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-
-autocmd cursorhold * set nohlsearch
-autocmd cursormoved * set hlsearch
-
-nmap vs :vsplit<cr>
-nmap sp :split<cr>
-nmap bn :bn<cr>
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'fatih/vim-go'
-Plugin 'lokaltog/vim-powerline'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'brookhong/cscope.vim'
-
-
-call vundle#end()
-filetype plugin indent on
 
 colorscheme molokai
-syntax on
 
-let g:go_fmt_command = "goimports"
-
-set guifont=Inconsolata\ for\ Powerline:h15
-let g:Powerline_symbols = 'fancy'
-set encoding=utf-8
-set t_Co=256
-set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
-set termencoding=utf-8
-
-map <C-f> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
-
+" mapping Cscope hotkeys
 nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
 nnoremap <leader>l :call ToggleLocationList()<CR>
 " s: Find this C symbol
@@ -95,4 +110,3 @@ nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
 nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
 " i: Find files #including this file
 nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
-
