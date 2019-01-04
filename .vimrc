@@ -8,22 +8,29 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'fatih/vim-go'
 Plugin 'lokaltog/vim-powerline'
-Plugin 'flazz/vim-colorschemes'
+" Plugin 'flazz/vim-colorschemes'
 Plugin 'brookhong/cscope.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'junegunn/gv.vim'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 call vundle#end()
 
+set timeout timeoutlen=2000
+
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+
 set t_Co=256
+set linespace=0
 
 filetype off
 filetype plugin indent on
 
+set ff=unix
 set showmode                    " always show what mode we're currently editing in
-set nowrap                      " don't wrap lines
+" set nowrap                      " don't wrap lines
 set tabstop=4                   " a tab is four spaces
 set smarttab
 set tags=tags
@@ -36,23 +43,24 @@ set copyindent                  " copy the previous indentation on autoindenting
 set number                      " always show line numbers
 set ignorecase                  " ignore case when searching
 set smartcase                   " ignore case if search pattern is all lowercase,
-set timeout timeoutlen=200 ttimeoutlen=100
 set autowrite  "Save on buffer switch
 set mouse=a
+
+" set clipboard=unnamed
 
 "Show (partial) command in the status line
 set showcmd
 
-set guifont=Inconsolata\ for\ Powerline:h15
+"set guifont=Inconsolata\ for\ Powerline:h15
 set encoding=utf-8
 set fillchars+=stl:\ ,stlnc:\
 set term=xterm-256color
 set termencoding=utf-8
-set cursorline
+" set cursorline
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 set statusline+=%{fugitive#statusline()}
 
 let g:syntastic_always_populate_loc_list = 1
@@ -61,6 +69,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:go_fmt_command = "goimports"
 let g:Powerline_symbols = 'fancy'
+let g:cscope_silent = 1
 
 syntax on
 
@@ -89,7 +98,7 @@ let g:Powerline_symbols = 'fancy'
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 
-colorscheme molokai
+" colorscheme molokai
 
 " mapping Cscope hotkeys
 nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
@@ -110,3 +119,4 @@ nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
 nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
 " i: Find files #including this file
 nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+
